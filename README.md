@@ -1,5 +1,8 @@
 # widget_with_codeview
 
+[![pub package](https://img.shields.io/pub/v/widget_with_codeview.svg)](https://pub.dartlang.org/packages/widget_with_codeview)
+![GitHub](https://img.shields.io/github/license/x-wei/widget_with_codeview.svg)
+
 A widget with side-by-side source code view. Extracted from the
 [flutter-catalog](https://github.com/X-Wei/flutter_catalog/) open-source app.
 
