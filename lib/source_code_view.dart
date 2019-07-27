@@ -56,6 +56,7 @@ class _SourceCodeViewState extends State<SourceCodeView> {
     return <Widget>[
       if (this.widget.codeLink != null)
         FloatingActionButton(
+          heroTag: null,
           child: Icon(Icons.content_copy),
           tooltip: 'Copy code link to clipboard',
           onPressed: () {
@@ -67,11 +68,13 @@ class _SourceCodeViewState extends State<SourceCodeView> {
         ),
       if (this.widget.codeLink != null)
         FloatingActionButton(
+          heroTag: null,
           child: Icon(Icons.open_in_new),
           tooltip: 'View code in browser',
           onPressed: () => url_launcher.launch(this.widget.codeLink),
         ),
       FloatingActionButton(
+        heroTag: null,
         child: Icon(Icons.zoom_out),
         tooltip: 'Zoom out',
         onPressed: () => setState(() {
@@ -79,6 +82,7 @@ class _SourceCodeViewState extends State<SourceCodeView> {
         }),
       ),
       FloatingActionButton(
+        heroTag: null,
         child: Icon(Icons.zoom_in),
         tooltip: 'Zoom in',
         onPressed: () => setState(() {
