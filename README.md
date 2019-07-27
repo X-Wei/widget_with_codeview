@@ -17,7 +17,7 @@ First make sure to add the source file to the app's assets by editing `pubspec.y
 dependencies:
   flutter:
     sdk: flutter
-  widget_with_codeview: '1.0.0'
+  widget_with_codeview: '1.0.1'
 flutter:
   assets:
     # Include a single source code file:
