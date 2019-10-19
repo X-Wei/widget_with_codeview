@@ -1,5 +1,9 @@
 # Changelogs
 
+## [1.0.2] - 2019-10-19
+
+Use SelectableText.rich() to make code selectable.
+
 ## [1.0.1] - 2019-07-27
 
 Fix multiple heroes tag issue.
