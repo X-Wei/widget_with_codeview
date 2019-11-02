@@ -39,7 +39,8 @@ class _SourceCodeViewState extends State<SourceCodeView> {
             scrollDirection: Axis.horizontal,
             child: SelectableText.rich(
               TextSpan(
-                style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+                style: TextStyle(fontFamily: 'monospace', fontSize: 12.0)
+                    .apply(fontSizeFactor: this._textScaleFactor),
                 children: <TextSpan>[
                   DartSyntaxHighlighter(style).format(codeContent)
                 ],
