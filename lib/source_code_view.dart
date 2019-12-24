@@ -27,6 +27,7 @@ class _SourceCodeViewState extends State<SourceCodeView> {
   double _textScaleFactor = 1.0;
 
   Widget _getCodeView(String codeContent, BuildContext context) {
+    codeContent = codeContent.replaceAll('\r\n', '\n');
     final SyntaxHighlighterStyle style =
         Theme.of(context).brightness == Brightness.dark
             ? SyntaxHighlighterStyle.darkThemeStyle()
