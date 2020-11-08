@@ -11,8 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   animated_floatactionbuttons: ^0.1.0
-  string_scanner: ^1.0.4
-  url_launcher: ^5.0.3
+  string_scanner: ^1.0.5
+  url_launcher: ^5.7.10
 
 dev_dependencies:
   flutter_test:
