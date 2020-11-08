@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'source_code_view.dart';
 
-class WidgetWithCodeView extends StatelessWidget {
+class WidgetWithCodeView extends StatefulWidget {
   // Path of source file (relative to project root). The file's content will be
   // shown in the "Code" tab.
   final String sourceFilePath;
@@ -17,11 +17,6 @@ class WidgetWithCodeView extends StatelessWidget {
     @required this.sourceFilePath,
     this.codeLinkPrefix,
   }) : super(key: key);
-
-  String get routeName => '/${this.runtimeType.toString()}';
-
-  Widget get sourceCodeView => SourceCodeView(
-      filePath: this.sourceFilePath, codeLinkPrefix: this.codeLinkPrefix);
 
   static const _TABS = <Widget>[
     Tab(
@@ -39,20 +34,47 @@ class WidgetWithCodeView extends StatelessWidget {
   ];
 
   @override
+  _WidgetWithCodeViewState createState() => _WidgetWithCodeViewState();
+}
+
+class _WidgetWithCodeViewState extends State<WidgetWithCodeView>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  String get routeName => '/${this.runtimeType.toString()}';
+
+  Widget get sourceCodeView => SourceCodeView(
+      filePath: this.widget.sourceFilePath,
+      codeLinkPrefix: this.widget.codeLinkPrefix);
+
+  @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: _ColoredTabBar(
-          color: Theme.of(context).primaryColor,
-          tabBar: TabBar(tabs: _TABS),
+    return Scaffold(
+      appBar: _ColoredTabBar(
+        color: Theme.of(context).primaryColor,
+        tabBar: TabBar(
+          controller: _tabController,
+          tabs: WidgetWithCodeView._TABS,
         ),
-        body: TabBarView(
-          children: <Widget>[
-            _AlwaysAliveWidget(child: this.child),
-            _AlwaysAliveWidget(child: this.sourceCodeView),
-          ],
-        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: <Widget>[
+          _AlwaysAliveWidget(child: this.widget.child),
+          _AlwaysAliveWidget(child: this.sourceCodeView),
+        ],
       ),
     );
   }
