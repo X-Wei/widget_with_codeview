@@ -1,5 +1,9 @@
 # Changelogs
 
+## [1.0.4] - 2020-11-08
+
+Fix default tab controller.
+
 ## [1.0.3] - 2019-11-02
 
 Fix zoom button behavior.
