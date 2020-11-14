@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 import 'syntax_highlighter.dart';
 
@@ -40,7 +41,7 @@ class _SourceCodeViewState extends State<SourceCodeView> {
             scrollDirection: Axis.horizontal,
             child: SelectableText.rich(
               TextSpan(
-                style: TextStyle(fontFamily: 'monospace', fontSize: 12.0)
+                style: GoogleFonts.droidSansMono(fontSize: 12)
                     .apply(fontSizeFactor: this._textScaleFactor),
                 children: <TextSpan>[
                   DartSyntaxHighlighter(style).format(codeContent)
