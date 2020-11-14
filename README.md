@@ -33,8 +33,8 @@ Then wrap the widget from that source file by a `WidgetWithCodeView`:
 WidgetWithCodeView(
   child: MyAwesomeWidget(),
   sourceFilePath: 'lib/my_awesome_source_code.dart',
-  // 1codeLinkPrefix` is optional. When it's specified, two more buttons
-  // (open-code-in-browser, copy-code-link) will be added in the code view.
+  /// [codeLinkPrefix] is optional. When it's specified, two more buttons
+  /// (open-code-in-browser, copy-code-link) will be added in the code view.
   codeLinkPrefix: 'https://github.com/<my_username>/<my_project>/blob/master/',
 ),
 ```
