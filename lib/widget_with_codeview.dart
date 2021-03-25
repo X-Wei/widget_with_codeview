@@ -9,12 +9,12 @@ class WidgetWithCodeView extends StatefulWidget {
   // shown in the "Code" tab.
   final String sourceFilePath;
   final Widget child;
-  final String codeLinkPrefix;
+  final String? codeLinkPrefix;
 
   const WidgetWithCodeView({
-    Key key,
-    @required this.child,
-    @required this.sourceFilePath,
+    Key? key,
+    required this.child,
+    required this.sourceFilePath,
     this.codeLinkPrefix,
   }) : super(key: key);
 
@@ -39,7 +39,7 @@ class WidgetWithCodeView extends StatefulWidget {
 
 class _WidgetWithCodeViewState extends State<WidgetWithCodeView>
     with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  TabController? _tabController;
 
   @override
   void initState() {
@@ -49,7 +49,7 @@ class _WidgetWithCodeViewState extends State<WidgetWithCodeView>
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController!.dispose();
     super.dispose();
   }
 
@@ -85,7 +85,7 @@ class _WidgetWithCodeViewState extends State<WidgetWithCodeView>
 class _AlwaysAliveWidget extends StatefulWidget {
   final Widget child;
 
-  const _AlwaysAliveWidget({Key key, @required this.child}) : super(key: key);
+  const _AlwaysAliveWidget({Key? key, required this.child}) : super(key: key);
 
   @override
   _AlwaysAliveWidgetState createState() => _AlwaysAliveWidgetState();
@@ -107,7 +107,7 @@ class _ColoredTabBar extends Container implements PreferredSizeWidget {
   final Color color;
   final TabBar tabBar;
 
-  _ColoredTabBar({Key key, @required this.color, @required this.tabBar})
+  _ColoredTabBar({Key? key, required this.color, required this.tabBar})
       : super(key: key);
 
   @override

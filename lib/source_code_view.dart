@@ -9,12 +9,12 @@ import 'syntax_highlighter.dart';
 
 class SourceCodeView extends StatefulWidget {
   final String filePath;
-  final String codeLinkPrefix;
+  final String? codeLinkPrefix;
 
-  const SourceCodeView({Key key, @required this.filePath, this.codeLinkPrefix})
+  const SourceCodeView({Key? key, required this.filePath, this.codeLinkPrefix})
       : super(key: key);
 
-  String get codeLink => this.codeLinkPrefix == null
+  String? get codeLink => this.codeLinkPrefix == null
       ? null
       : '${this.codeLinkPrefix}/${this.filePath}';
 
@@ -78,7 +78,7 @@ class _SourceCodeViewState extends State<SourceCodeView> {
           label: 'View code in browser',
           backgroundColor: Colors.blue,
           foregroundColor: Colors.white,
-          onTap: () => url_launcher.launch(this.widget.codeLink),
+          onTap: () => url_launcher.launch(this.widget.codeLink!),
         ),
       SpeedDialChild(
         child: Icon(Icons.zoom_out),
@@ -104,14 +104,13 @@ class _SourceCodeViewState extends State<SourceCodeView> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: DefaultAssetBundle.of(context).loadString(widget.filePath) ??
-          'Error loading source code from $this.filePath',
+      future: DefaultAssetBundle.of(context).loadString(widget.filePath),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
             body: Padding(
               padding: EdgeInsets.all(4.0),
-              child: _getCodeView(snapshot.data, context),
+              child: _getCodeView(snapshot.data!, context),
             ),
             floatingActionButton: SpeedDial(
               renderOverlay: false,

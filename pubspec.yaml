@@ -4,12 +4,11 @@ version: 1.0.5
 homepage: https://github.com/X-Wei/widget_with_codeview
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  animated_floatactionbuttons: ^0.1.0
   flutter_speed_dial: ^3.0.5
   google_fonts: ^2.0.0
   string_scanner: ^1.0.5
