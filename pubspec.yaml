@@ -10,9 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
   animated_floatactionbuttons: ^0.1.0
-  google_fonts: ^1.1.1
+  flutter_speed_dial: ^3.0.5
+  google_fonts: ^2.0.0
   string_scanner: ^1.0.5
-  url_launcher: ^5.7.10
+  url_launcher: ^6.0.3
 
 dev_dependencies:
   flutter_test:
@@ -20,6 +21,5 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter.
-flutter:
+flutter: null
