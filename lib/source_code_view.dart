@@ -1,20 +1,20 @@
 import 'dart:math';
 
-import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 import 'syntax_highlighter.dart';
 
 class SourceCodeView extends StatefulWidget {
   final String filePath;
-  final String codeLinkPrefix;
+  final String? codeLinkPrefix;
 
-  const SourceCodeView({Key key, @required this.filePath, this.codeLinkPrefix})
+  const SourceCodeView({Key? key, required this.filePath, this.codeLinkPrefix})
       : super(key: key);
 
-  String get codeLink => this.codeLinkPrefix == null
+  String? get codeLink => this.codeLinkPrefix == null
       ? null
       : '${this.codeLinkPrefix}/${this.filePath}';
 
@@ -57,40 +57,44 @@ class _SourceCodeViewState extends State<SourceCodeView> {
     );
   }
 
-  List<Widget> _buildFloatingButtons() {
-    return <Widget>[
+  List<SpeedDialChild> _buildFloatingButtons() {
+    return <SpeedDialChild>[
       if (this.widget.codeLink != null)
-        FloatingActionButton(
-          heroTag: null,
+        SpeedDialChild(
           child: Icon(Icons.content_copy),
-          tooltip: 'Copy code link to clipboard',
-          onPressed: () {
+          label: 'Copy code link to clipboard',
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          onTap: () {
             Clipboard.setData(ClipboardData(text: this.widget.codeLink));
-            Scaffold.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('Code link copied to clipboard!'),
             ));
           },
         ),
       if (this.widget.codeLink != null)
-        FloatingActionButton(
-          heroTag: null,
+        SpeedDialChild(
           child: Icon(Icons.open_in_new),
-          tooltip: 'View code in browser',
-          onPressed: () => url_launcher.launch(this.widget.codeLink),
+          label: 'View code in browser',
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          onTap: () => url_launcher.launch(this.widget.codeLink!),
         ),
-      FloatingActionButton(
-        heroTag: null,
+      SpeedDialChild(
         child: Icon(Icons.zoom_out),
-        tooltip: 'Zoom out',
-        onPressed: () => setState(() {
+        label: 'Zoom out',
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        onTap: () => setState(() {
           this._textScaleFactor = max(0.8, this._textScaleFactor - 0.1);
         }),
       ),
-      FloatingActionButton(
-        heroTag: null,
+      SpeedDialChild(
         child: Icon(Icons.zoom_in),
-        tooltip: 'Zoom in',
-        onPressed: () => setState(() {
+        label: 'Zoom in',
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        onTap: () => setState(() {
           this._textScaleFactor += 0.1;
         }),
       ),
@@ -100,20 +104,24 @@ class _SourceCodeViewState extends State<SourceCodeView> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: DefaultAssetBundle.of(context).loadString(widget.filePath) ??
-          'Error loading source code from $this.filePath',
+      future: DefaultAssetBundle.of(context).loadString(widget.filePath),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
             body: Padding(
               padding: EdgeInsets.all(4.0),
-              child: _getCodeView(snapshot.data, context),
+              child: _getCodeView(snapshot.data!, context),
             ),
-            floatingActionButton: AnimatedFloatingActionButton(
-              fabButtons: _buildFloatingButtons(),
-              colorStartAnimation: Colors.blue,
-              colorEndAnimation: Colors.red,
-              animatedIconData: AnimatedIcons.menu_close,
+            floatingActionButton: SpeedDial(
+              renderOverlay: false,
+              overlayOpacity: 0,
+              children: _buildFloatingButtons(),
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              activeBackgroundColor: Colors.red,
+              activeForegroundColor: Colors.white,
+              icon: Icons.menu,
+              activeIcon: Icons.close,
             ),
           );
         } else {

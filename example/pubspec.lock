@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  cupertino_icons:
+    dependency: "direct main"
+    description:
+      name: cupertino_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   fake_async:
     dependency: transitive
     description:
@@ -77,7 +84,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_speed_dial:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_speed_dial
       url: "https://pub.dartlang.org"
@@ -94,7 +101,7 @@ packages:
     source: sdk
     version: "0.0.0"
   google_fonts:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: google_fonts
       url: "https://pub.dartlang.org"
@@ -232,7 +239,7 @@ packages:
     source: hosted
     version: "2.1.0"
   string_scanner:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: string_scanner
       url: "https://pub.dartlang.org"
@@ -260,7 +267,7 @@ packages:
     source: hosted
     version: "1.3.0"
   url_launcher:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: url_launcher
       url: "https://pub.dartlang.org"
@@ -308,6 +315,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  widget_with_codeview:
+    dependency: "direct main"
+    description:
+      path: ".."
+      relative: true
+    source: path
+    version: "1.0.5"
   win32:
     dependency: transitive
     description:
