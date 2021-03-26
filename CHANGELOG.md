@@ -1,5 +1,10 @@
 # Changelogs
 
+## [2.0.0-nullsafe] - 2021-03-26
+
+(Prerelease) Migrate to null safty. 
+Many thanks to ryan-sf@!
+
 ## [1.0.5] - 2020-11-14
 
 Use google_fonts package for source code view.
