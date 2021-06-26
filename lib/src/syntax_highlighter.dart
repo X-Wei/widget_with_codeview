@@ -16,8 +16,7 @@ class SyntaxHighlighterStyle {
       this.classStyle,
       this.constantStyle});
 
-  static SyntaxHighlighterStyle lightThemeStyle() {
-    return SyntaxHighlighterStyle(
+  static SyntaxHighlighterStyle lightThemeStyle() => SyntaxHighlighterStyle(
         baseStyle: const TextStyle(color: const Color(0xFF000000)),
         numberStyle: const TextStyle(color: const Color(0xFF1565C0)),
         commentStyle: const TextStyle(color: const Color(0xFF9E9E9E)),
@@ -25,11 +24,10 @@ class SyntaxHighlighterStyle {
         stringStyle: const TextStyle(color: const Color(0xFF43A047)),
         punctuationStyle: const TextStyle(color: const Color(0xFF000000)),
         classStyle: const TextStyle(color: const Color(0xFF512DA8)),
-        constantStyle: const TextStyle(color: const Color(0xFF795548)));
-  }
+        constantStyle: const TextStyle(color: const Color(0xFF795548)),
+      );
 
-  static SyntaxHighlighterStyle darkThemeStyle() {
-    return SyntaxHighlighterStyle(
+  static SyntaxHighlighterStyle darkThemeStyle() => SyntaxHighlighterStyle(
         baseStyle: const TextStyle(color: const Color(0xFFFFFFFF)),
         numberStyle: const TextStyle(color: const Color(0xFF1565C0)),
         commentStyle: const TextStyle(color: const Color(0xFF9E9E9E)),
@@ -37,8 +35,29 @@ class SyntaxHighlighterStyle {
         stringStyle: const TextStyle(color: const Color(0xFF009688)),
         punctuationStyle: const TextStyle(color: const Color(0xFFFFFFFF)),
         classStyle: const TextStyle(color: const Color(0xFF009688)),
-        constantStyle: const TextStyle(color: const Color(0xFF795548)));
-  }
+        constantStyle: const TextStyle(color: const Color(0xFF795548)),
+      );
+
+  SyntaxHighlighterStyle copyWith({
+    TextStyle? baseStyle,
+    TextStyle? numberStyle,
+    TextStyle? commentStyle,
+    TextStyle? keywordStyle,
+    TextStyle? stringStyle,
+    TextStyle? punctuationStyle,
+    TextStyle? classStyle,
+    TextStyle? constantStyle,
+  }) =>
+      SyntaxHighlighterStyle(
+        baseStyle: baseStyle ?? this.baseStyle,
+        numberStyle: numberStyle ?? this.numberStyle,
+        commentStyle: commentStyle ?? this.commentStyle,
+        keywordStyle: keywordStyle ?? this.keywordStyle,
+        stringStyle: stringStyle ?? this.stringStyle,
+        punctuationStyle: punctuationStyle ?? this.punctuationStyle,
+        classStyle: classStyle ?? this.classStyle,
+        constantStyle: constantStyle ?? this.constantStyle,
+      );
 
   final TextStyle? baseStyle;
   final TextStyle? numberStyle;

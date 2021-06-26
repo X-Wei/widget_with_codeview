@@ -13,6 +13,8 @@
 **/android/
 **/ios/
 **/macos/
+**/windows/
+**/web/
 
 # IntelliJ related
 *.iml
