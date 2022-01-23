@@ -83,7 +83,7 @@ class _SourceCodeViewState extends State<SourceCodeView> {
         if (this.widget.codeLink != null)
           SpeedDialChild(
             child: Icon(Icons.content_copy),
-            label: showLabelText ? 'Copy code to clipboard' : null,
+            labelWidget: showLabelText ? Text('Copy code to clipboard') : null,
             backgroundColor: iconBackgroundColor,
             foregroundColor: iconForegroundColor,
             labelBackgroundColor: labelBackgroundColor,
@@ -100,7 +100,7 @@ class _SourceCodeViewState extends State<SourceCodeView> {
         if (this.widget.codeLink != null)
           SpeedDialChild(
             child: Icon(Icons.open_in_new),
-            label: showLabelText ? 'View code in browser' : null,
+            labelWidget: showLabelText ? Text('View code in browser') : null,
             backgroundColor: iconBackgroundColor,
             foregroundColor: iconForegroundColor,
             labelBackgroundColor: labelBackgroundColor,
@@ -109,7 +109,7 @@ class _SourceCodeViewState extends State<SourceCodeView> {
           ),
         SpeedDialChild(
           child: Icon(Icons.zoom_out),
-          label: showLabelText ? 'Zoom out' : null,
+          labelWidget: showLabelText ? Text('Zoom out') : null,
           backgroundColor: iconBackgroundColor,
           foregroundColor: iconForegroundColor,
           labelBackgroundColor: labelBackgroundColor,
@@ -120,7 +120,7 @@ class _SourceCodeViewState extends State<SourceCodeView> {
         ),
         SpeedDialChild(
           child: Icon(Icons.zoom_in),
-          label: showLabelText ? 'Zoom in' : null,
+          labelWidget: showLabelText ? Text('Zoom in') : null,
           backgroundColor: iconBackgroundColor,
           foregroundColor: iconForegroundColor,
           labelBackgroundColor: labelBackgroundColor,
