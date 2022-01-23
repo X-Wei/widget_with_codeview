@@ -109,7 +109,8 @@ class _SourceCodeViewState extends State<SourceCodeView> {
           ),
         SpeedDialChild(
           child: Icon(Icons.zoom_out),
-          labelWidget: showLabelText ? Text('Zoom out') : null,
+          label: showLabelText ? 'Zoom out' : null,
+          // labelWidget: showLabelText ? Text('Zoom out') : null,
           backgroundColor: iconBackgroundColor,
           foregroundColor: iconForegroundColor,
           labelBackgroundColor: labelBackgroundColor,

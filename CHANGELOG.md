@@ -1,5 +1,9 @@
 # Changelogs
 
+## [2.0.1] - 2022-01-23
+- Many improvements thanks to Agondev's [PR](https://github.com/X-Wei/widget_with_codeview/pull/11)
+- Fix speedDial menu lable color [issue](https://github.com/X-Wei/flutter_catalog/issues/120).
+
 ## [2.0.0-nullsafe] - 2021-03-26
 
 (Prerelease) Migrate to null safty. 
