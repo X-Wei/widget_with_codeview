@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: WidgetWithCodeView(
           child: const SomeWidget(),
-          sourceFilePath: 'lib/main.dart',
+          filePath: 'lib/main.dart',
           codeLinkPrefix: 'https://google.com?q=',
           iconBackgroundColor: Colors.white,
           iconForegroundColor: Colors.pink,

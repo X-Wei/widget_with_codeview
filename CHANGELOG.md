@@ -1,5 +1,13 @@
 # Changelogs
 
+## [3.0.0] - 2022-10-22
+- use HighlightView for codeView
+- add hooks on tab switch
+- add optional footer/header widget
+- fix speedial style
+- todo: upd to dart 2.18
+- todo: cleanup
+
 ## [2.0.1] - 2022-01-23
 - Many improvements thanks to Agondev's [PR](https://github.com/X-Wei/widget_with_codeview/pull/11)
 - Fix speedDial menu lable color [issue](https://github.com/X-Wei/flutter_catalog/issues/120).

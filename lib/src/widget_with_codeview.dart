@@ -4,36 +4,26 @@ import 'package:flutter/material.dart';
 
 import 'source_code_view.dart';
 
-class WidgetWithCodeView extends StatefulWidget {
-  // Path of source file (relative to project root). The file's content will be
-  // shown in the "Code" tab.
-  final String sourceFilePath;
-  final Widget child;
-  final String? codeLinkPrefix;
-  final bool? showLabelText;
-  final Color? iconBackgroundColor;
-  final Color? iconForegroundColor;
-  final Color? labelBackgroundColor;
-  final TextStyle? labelTextStyle;
+class WidgetWithCodeView extends SourceCodeView {
+  // If not given, will just show the SourceCodeView (see https://github.com/X-Wei/widget_with_codeview/issues/10).
+  final Widget? child;
   // Can be used to add a hook when switching tabs.
   final void Function(TabController)? tabChangeListener;
-  final Widget? headerWidget;
-  final Widget? footerWidget;
 
   const WidgetWithCodeView({
-    Key? key,
-    required this.child,
-    required this.sourceFilePath,
-    this.codeLinkPrefix,
-    this.showLabelText,
-    this.iconBackgroundColor,
-    this.iconForegroundColor,
-    this.labelBackgroundColor,
-    this.labelTextStyle,
+    super.key,
+    this.child,
+    required super.filePath,
     this.tabChangeListener,
-    this.headerWidget,
-    this.footerWidget,
-  }) : super(key: key);
+    super.codeLinkPrefix,
+    super.showLabelText,
+    super.iconBackgroundColor,
+    super.iconForegroundColor,
+    super.labelBackgroundColor,
+    super.labelTextStyle,
+    super.headerWidget,
+    super.footerWidget,
+  });
 
   static const _TABS = <Widget>[
     Tab(
@@ -51,20 +41,28 @@ class WidgetWithCodeView extends StatefulWidget {
   ];
 
   @override
-  _WidgetWithCodeViewState createState() => _WidgetWithCodeViewState();
+  _WidgetWithCodeViewState createState() => _WidgetWithCodeViewState(
+      tabChangeListener: tabChangeListener, child: child);
 }
 
-class _WidgetWithCodeViewState extends State<WidgetWithCodeView>
+//? Need to override SourceCodeViewState rather than State<WidgetWithCodeView>.
+//! otherwise won't compile, because WidgetWithCodeView extends SourceCodeView.
+//! I use this inheritance to use "parameter forwarding" feature in dart 2.17.
+class _WidgetWithCodeViewState extends SourceCodeViewState
     with SingleTickerProviderStateMixin {
+  Widget? child;
   late TabController _tabController;
+  void Function(TabController)? tabChangeListener;
+
+  _WidgetWithCodeViewState({this.child, this.tabChangeListener});
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    if (widget.tabChangeListener != null) {
+    if (tabChangeListener != null) {
       _tabController.addListener(
-        () => widget.tabChangeListener!(_tabController),
+        () => tabChangeListener!(_tabController),
       );
     }
   }
@@ -77,35 +75,29 @@ class _WidgetWithCodeViewState extends State<WidgetWithCodeView>
 
   String get routeName => '/${this.runtimeType.toString()}';
 
-  Widget get sourceCodeView => SourceCodeView(
-        filePath: this.widget.sourceFilePath,
-        codeLinkPrefix: this.widget.codeLinkPrefix,
-        labelTextStyle: widget.labelTextStyle,
-        showLabelText: widget.showLabelText ?? true,
-        iconBackgroundColor: widget.iconBackgroundColor,
-        iconForegroundColor: widget.iconForegroundColor,
-        labelBackgroundColor: widget.labelBackgroundColor,
-        headerWidget: widget.headerWidget,
-        footerWidget: widget.footerWidget,
-      );
+  Widget get sourceCodeView => super.build(context);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _ColoredTabBar(
-        color: Theme.of(context).primaryColor,
-        tabBar: TabBar(
-          controller: _tabController,
-          tabs: WidgetWithCodeView._TABS,
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: <Widget>[
-          _AlwaysAliveWidget(child: this.widget.child),
-          _AlwaysAliveWidget(child: this.sourceCodeView),
-        ],
-      ),
+      appBar: (child == null)
+          ? null
+          : _ColoredTabBar(
+              color: Theme.of(context).primaryColor,
+              tabBar: TabBar(
+                controller: _tabController,
+                tabs: WidgetWithCodeView._TABS,
+              ),
+            ),
+      body: (child == null)
+          ? sourceCodeView
+          : TabBarView(
+              controller: _tabController,
+              children: <Widget>[
+                _AlwaysAliveWidget(child: this.child!),
+                _AlwaysAliveWidget(child: this.sourceCodeView),
+              ],
+            ),
     );
   }
 }

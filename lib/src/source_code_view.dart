@@ -7,9 +7,12 @@ import 'package:flutter_highlight/themes/atom-one-dark.dart';
 import 'package:flutter_highlight/themes/github.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:selectable/selectable.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 class SourceCodeView extends StatefulWidget {
+  // Path of source file (relative to project root). The file's content will be
+  // shown in the "Code" tab.
   final String filePath;
   final String? codeLinkPrefix;
   final bool showLabelText;
@@ -38,12 +41,12 @@ class SourceCodeView extends StatefulWidget {
       : '${this.codeLinkPrefix}/${this.filePath}';
 
   @override
-  _SourceCodeViewState createState() {
-    return _SourceCodeViewState();
+  SourceCodeViewState createState() {
+    return SourceCodeViewState();
   }
 }
 
-class _SourceCodeViewState extends State<SourceCodeView> {
+class SourceCodeViewState extends State<SourceCodeView> {
   double _textScaleFactor = 1.0;
 
   Widget _getCodeView(String codeContent, BuildContext context) {
@@ -58,14 +61,16 @@ class _SourceCodeViewState extends State<SourceCodeView> {
               Divider(),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: HighlightView(
-                  codeContent,
-                  language: 'dart',
-                  theme: Theme.of(context).brightness == Brightness.light
-                      ? githubTheme
-                      : atomOneDarkTheme,
-                  textStyle: GoogleFonts.notoSansMono(fontSize: 12)
-                      .apply(fontSizeFactor: this._textScaleFactor),
+                child: Selectable(
+                  child: HighlightView(
+                    codeContent,
+                    language: 'dart',
+                    theme: Theme.of(context).brightness == Brightness.light
+                        ? githubTheme
+                        : atomOneDarkTheme,
+                    textStyle: GoogleFonts.notoSansMono(fontSize: 12)
+                        .apply(fontSizeFactor: this._textScaleFactor),
+                  ),
                 ),
               ),
               Divider(),
