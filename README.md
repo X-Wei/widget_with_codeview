@@ -17,7 +17,7 @@ First make sure to add the source file to the app's assets by editing `pubspec.y
 dependencies:
   flutter:
     sdk: flutter
-  widget_with_codeview: '1.0.3'
+  widget_with_codeview:
 flutter:
   assets:
     # Include a single source code file:
@@ -31,19 +31,14 @@ Then wrap the widget from that source file by a `WidgetWithCodeView`:
 
 ```dart
 WidgetWithCodeView(
-  child: MyAwesomeWidget(),
-  sourceFilePath: 'lib/my_awesome_source_code.dart',
+  child: MyAwesomeWidget(), // ⚡️ If null, will only show the source code view.
+  filePath: 'lib/my_awesome_source_code.dart',
   /// [codeLinkPrefix] is optional. When it's specified, two more buttons
   /// (open-code-in-browser, copy-code-link) will be added in the code view.
   codeLinkPrefix: 'https://github.com/<my_username>/<my_project>/blob/master/',
 ),
 ```
 
-You can also choose to only show the code:
+You can also choose to only show the code by not setting the `child` argument.
 
-```dart
-SourceCodeView(
-  sourceFilePath: 'lib/my_awesome_source_code.dart',
-  codeLinkPrefix: 'https://github.com/<my_username>/<my_project>/blob/master/',
-),
-```
+See `example/lib/main.dart` for a concrete example.

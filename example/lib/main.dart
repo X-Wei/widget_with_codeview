@@ -7,8 +7,8 @@ void main() {
   runApp(MyApp());
 }
 
-/// ensure the files in sourceFilePath are included in pubspec.yaml
-/// in this case the codeViewer will display this file's code
+/// ! Ensure the files in [filePath] are included in pubspec.yaml
+/// In this example the codeViewer will display this file's code
 /// by pointing to the main.dart file
 class MyApp extends StatelessWidget {
   @override
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark(),
       home: Scaffold(
         body: WidgetWithCodeView(
-          child: const SomeWidget(),
+          child: const SomeWidget(), //! If empty, will only show the code view.
           filePath: 'lib/main.dart',
           codeLinkPrefix: 'https://google.com?q=',
           iconBackgroundColor: Colors.white,
