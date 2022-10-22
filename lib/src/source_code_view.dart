@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_highlight/flutter_highlight.dart';
+import 'package:flutter_highlight/themes/atom-one-dark.dart';
+import 'package:flutter_highlight/themes/github.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
-import 'syntax_highlighter.dart';
 
 class SourceCodeView extends StatefulWidget {
   final String filePath;
@@ -15,7 +17,8 @@ class SourceCodeView extends StatefulWidget {
   final Color? iconForegroundColor;
   final Color? labelBackgroundColor;
   final TextStyle? labelTextStyle;
-  final SyntaxHighlighterStyle? syntaxHighlighterStyle;
+  final Widget? headerWidget;
+  final Widget? footerWidget;
 
   const SourceCodeView({
     Key? key,
@@ -26,7 +29,8 @@ class SourceCodeView extends StatefulWidget {
     this.iconForegroundColor,
     this.labelBackgroundColor,
     this.labelTextStyle,
-    this.syntaxHighlighterStyle,
+    this.headerWidget,
+    this.footerWidget,
   }) : super(key: key);
 
   String? get codeLink => this.codeLinkPrefix == null
@@ -44,28 +48,29 @@ class _SourceCodeViewState extends State<SourceCodeView> {
 
   Widget _getCodeView(String codeContent, BuildContext context) {
     codeContent = codeContent.replaceAll('\r\n', '\n');
-    final SyntaxHighlighterStyle style = widget.syntaxHighlighterStyle ??
-        (Theme.of(context).brightness == Brightness.dark
-            ? SyntaxHighlighterStyle.darkThemeStyle()
-            : SyntaxHighlighterStyle.lightThemeStyle());
     return Container(
       constraints: BoxConstraints.expand(),
       child: Scrollbar(
         child: SingleChildScrollView(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: SelectableText.rich(
-              TextSpan(
-                style: GoogleFonts.droidSansMono(fontSize: 12)
-                    .apply(fontSizeFactor: this._textScaleFactor),
-                children: <TextSpan>[
-                  DartSyntaxHighlighter(style).format(codeContent)
-                ],
+          child: Column(
+            children: [
+              if (widget.headerWidget != null) widget.headerWidget!,
+              Divider(),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: HighlightView(
+                  codeContent,
+                  language: 'dart',
+                  theme: Theme.of(context).brightness == Brightness.light
+                      ? githubTheme
+                      : atomOneDarkTheme,
+                  textStyle: GoogleFonts.notoSansMono(fontSize: 12)
+                      .apply(fontSizeFactor: this._textScaleFactor),
+                ),
               ),
-              style: DefaultTextStyle.of(context)
-                  .style
-                  .apply(fontSizeFactor: this._textScaleFactor),
-            ),
+              Divider(),
+              if (widget.footerWidget != null) widget.footerWidget!,
+            ],
           ),
         ),
       ),
@@ -83,7 +88,7 @@ class _SourceCodeViewState extends State<SourceCodeView> {
         if (this.widget.codeLink != null)
           SpeedDialChild(
             child: Icon(Icons.content_copy),
-            labelWidget: showLabelText ? Text('Copy code to clipboard') : null,
+            label: showLabelText ? 'Copy code to clipboard' : null,
             backgroundColor: iconBackgroundColor,
             foregroundColor: iconForegroundColor,
             labelBackgroundColor: labelBackgroundColor,
@@ -100,16 +105,16 @@ class _SourceCodeViewState extends State<SourceCodeView> {
         if (this.widget.codeLink != null)
           SpeedDialChild(
             child: Icon(Icons.open_in_new),
-            labelWidget: showLabelText ? Text('View code in browser') : null,
+            label: showLabelText ? 'View code in browser' : null,
             backgroundColor: iconBackgroundColor,
             foregroundColor: iconForegroundColor,
             labelBackgroundColor: labelBackgroundColor,
             labelStyle: labelTextStyle,
-            onTap: () => url_launcher.launch(this.widget.codeLink!),
+            onTap: () => url_launcher.launchUrl(Uri.parse(widget.codeLink!)),
           ),
         SpeedDialChild(
           child: Icon(Icons.zoom_out),
-          labelWidget: showLabelText ? Text('Zoom out') : null,
+          label: showLabelText ? 'Zoom out' : null,
           backgroundColor: iconBackgroundColor,
           foregroundColor: iconForegroundColor,
           labelBackgroundColor: labelBackgroundColor,
@@ -120,7 +125,7 @@ class _SourceCodeViewState extends State<SourceCodeView> {
         ),
         SpeedDialChild(
           child: Icon(Icons.zoom_in),
-          labelWidget: showLabelText ? Text('Zoom in') : null,
+          label: showLabelText ? 'Zoom in' : null,
           backgroundColor: iconBackgroundColor,
           foregroundColor: iconForegroundColor,
           labelBackgroundColor: labelBackgroundColor,
@@ -143,8 +148,7 @@ class _SourceCodeViewState extends State<SourceCodeView> {
               child: _getCodeView(snapshot.data!, context),
             ),
             floatingActionButton: SpeedDial(
-              renderOverlay: false,
-              overlayOpacity: 0,
+              closeManually: true,
               children: _buildFloatingButtons(
                 labelTextStyle: widget.labelTextStyle,
                 iconBackgroundColor: widget.iconBackgroundColor,
@@ -156,8 +160,7 @@ class _SourceCodeViewState extends State<SourceCodeView> {
               foregroundColor: Colors.white,
               activeBackgroundColor: Colors.red,
               activeForegroundColor: Colors.white,
-              icon: Icons.menu,
-              activeIcon: Icons.close,
+              animatedIcon: AnimatedIcons.menu_close,
             ),
           );
         } else {

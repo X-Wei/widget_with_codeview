@@ -1,18 +1,22 @@
 name: widget_with_codeview
 description: A widget with side-by-side source code view.
-version: 2.0.1+2
+version: 3.0.0+4
 homepage: https://github.com/X-Wei/widget_with_codeview
 
+publish_to: none
+
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_speed_dial: ^3.0.5
-  google_fonts: ^2.0.0
+  flutter_highlight: ^0.7.0
+  flutter_speed_dial: ^6.2.0
+  google_fonts: ^3.0.1
+  selectable: ^0.2.6
   string_scanner: ^1.0.5
-  url_launcher: ^6.0.3
+  url_launcher: ^6.1.6
 
 dev_dependencies:
   flutter_test:

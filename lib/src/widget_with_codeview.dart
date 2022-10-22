@@ -3,7 +3,6 @@ library widget_with_codeview;
 import 'package:flutter/material.dart';
 
 import 'source_code_view.dart';
-import 'syntax_highlighter.dart';
 
 class WidgetWithCodeView extends StatefulWidget {
   // Path of source file (relative to project root). The file's content will be
@@ -16,7 +15,10 @@ class WidgetWithCodeView extends StatefulWidget {
   final Color? iconForegroundColor;
   final Color? labelBackgroundColor;
   final TextStyle? labelTextStyle;
-  final SyntaxHighlighterStyle? syntaxHighlighterStyle;
+  // Can be used to add a hook when switching tabs.
+  final void Function(TabController)? tabChangeListener;
+  final Widget? headerWidget;
+  final Widget? footerWidget;
 
   const WidgetWithCodeView({
     Key? key,
@@ -28,7 +30,9 @@ class WidgetWithCodeView extends StatefulWidget {
     this.iconForegroundColor,
     this.labelBackgroundColor,
     this.labelTextStyle,
-    this.syntaxHighlighterStyle,
+    this.tabChangeListener,
+    this.headerWidget,
+    this.footerWidget,
   }) : super(key: key);
 
   static const _TABS = <Widget>[
@@ -52,17 +56,22 @@ class WidgetWithCodeView extends StatefulWidget {
 
 class _WidgetWithCodeViewState extends State<WidgetWithCodeView>
     with SingleTickerProviderStateMixin {
-  TabController? _tabController;
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    if (widget.tabChangeListener != null) {
+      _tabController.addListener(
+        () => widget.tabChangeListener!(_tabController),
+      );
+    }
   }
 
   @override
   void dispose() {
-    _tabController!.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -76,7 +85,8 @@ class _WidgetWithCodeViewState extends State<WidgetWithCodeView>
         iconBackgroundColor: widget.iconBackgroundColor,
         iconForegroundColor: widget.iconForegroundColor,
         labelBackgroundColor: widget.labelBackgroundColor,
-        syntaxHighlighterStyle: widget.syntaxHighlighterStyle,
+        headerWidget: widget.headerWidget,
+        footerWidget: widget.footerWidget,
       );
 
   @override

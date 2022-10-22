@@ -26,13 +26,6 @@ class MyApp extends StatelessWidget {
           labelTextStyle:
               TextStyle(color: Theme.of(context).textTheme.bodyText1.color),
           showLabelText: true,
-          syntaxHighlighterStyle:
-              SyntaxHighlighterStyle.darkThemeStyle().copyWith(
-            commentStyle: TextStyle(color: Colors.yellow),
-            keywordStyle: TextStyle(color: Colors.lightGreen),
-            classStyle: TextStyle(color: Colors.amber),
-            numberStyle: TextStyle(color: Colors.orange),
-          ),
         ),
       ),
     );
