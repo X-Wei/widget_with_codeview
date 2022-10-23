@@ -1,6 +1,6 @@
 name: widget_with_codeview
 description: A widget with side-by-side source code view.
-version: 3.0.0
+version: 3.0.1
 homepage: https://github.com/X-Wei/widget_with_codeview
 
 environment:

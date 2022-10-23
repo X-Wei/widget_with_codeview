@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
+import 'package:flutter_highlight/themes/atom-one-dark.dart';
 import 'package:flutter_highlight/themes/atom-one-light.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -63,8 +64,10 @@ class SourceCodeViewState extends State<SourceCodeView> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              if (widget.headerWidget != null) widget.headerWidget!,
-              Divider(),
+              if (widget.headerWidget != null) ...[
+                widget.headerWidget!,
+                Divider(),
+              ],
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Selectable(
@@ -73,14 +76,16 @@ class SourceCodeViewState extends State<SourceCodeView> {
                     language: 'dart',
                     theme: Theme.of(context).brightness == Brightness.light
                         ? widget.lightTheme ?? atomOneLightTheme
-                        : widget.darkTheme ?? atomOneLightTheme,
+                        : widget.darkTheme ?? atomOneDarkTheme,
                     textStyle: GoogleFonts.notoSansMono(fontSize: 12)
                         .apply(fontSizeFactor: this._textScaleFactor),
                   ),
                 ),
               ),
-              Divider(),
-              if (widget.footerWidget != null) widget.footerWidget!,
+              if (widget.footerWidget != null) ...[
+                Divider(),
+                widget.footerWidget!,
+              ],
             ],
           ),
         ),

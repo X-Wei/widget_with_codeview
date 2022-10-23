@@ -1,6 +1,6 @@
 # Changelogs
 
-## [3.0.0] - 2022-10-23
+## [3.0.1] - 2022-10-23
 - [breaking] migrate to dart 2.17.
 - [breaking] unify to one single `WidgetWithCodeView` API
   - when `child` argument is null, will only show `SourceCodeView`.
