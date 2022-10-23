@@ -3,8 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
-import 'package:flutter_highlight/themes/atom-one-dark.dart';
-import 'package:flutter_highlight/themes/github.dart';
+import 'package:flutter_highlight/themes/atom-one-light.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:selectable/selectable.dart';
@@ -15,13 +14,18 @@ class SourceCodeView extends StatefulWidget {
   // shown in the "Code" tab.
   final String filePath;
   final String? codeLinkPrefix;
+  // Fine tune the menu appearance.
   final bool showLabelText;
   final Color? iconBackgroundColor;
   final Color? iconForegroundColor;
   final Color? labelBackgroundColor;
   final TextStyle? labelTextStyle;
+  // Widget to put before/after the code content.
   final Widget? headerWidget;
   final Widget? footerWidget;
+  // Code highlighter theme for light/dark theme, defaults to "atomOne" themes.
+  final Map<String, TextStyle>? lightTheme;
+  final Map<String, TextStyle>? darkTheme;
 
   const SourceCodeView({
     Key? key,
@@ -34,6 +38,8 @@ class SourceCodeView extends StatefulWidget {
     this.labelTextStyle,
     this.headerWidget,
     this.footerWidget,
+    this.lightTheme,
+    this.darkTheme,
   }) : super(key: key);
 
   String? get codeLink => this.codeLinkPrefix == null
@@ -66,8 +72,8 @@ class SourceCodeViewState extends State<SourceCodeView> {
                     codeContent,
                     language: 'dart',
                     theme: Theme.of(context).brightness == Brightness.light
-                        ? githubTheme
-                        : atomOneDarkTheme,
+                        ? widget.lightTheme ?? atomOneLightTheme
+                        : widget.darkTheme ?? atomOneLightTheme,
                     textStyle: GoogleFonts.notoSansMono(fontSize: 12)
                         .apply(fontSizeFactor: this._textScaleFactor),
                   ),

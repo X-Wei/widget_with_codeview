@@ -1,15 +1,15 @@
 # Changelogs
 
-## [3.0.0] - 2022-10-22
+## [3.0.0] - 2022-10-23
 - [breaking] migrate to dart 2.17.
-- [breaking] unify API: when `child` argument is null, will only show `SourceCodeView`.
-  See https://github.com/X-Wei/widget_with_codeview/issues/10.
-- use HighlightView for codeView
-- add hooks on tab switch
-- add optional footer/header widget
+- [breaking] unify to one single `WidgetWithCodeView` API
+  - when `child` argument is null, will only show `SourceCodeView`.
+  - See https://github.com/X-Wei/widget_with_codeview/issues/10.
+- use [flutter_highlight](https://pub.dev/packages/flutter_highlight) for codeView
+- add param `tabChangeListener` to listen tab switch event
+- add param `headerWidget`/`footerWidget`
+- add param `lightTheme`/`darkTheme` to specify code syntax highlighter theme.
 - fix speedial style
-- todo: upd to dart 2.18
-- todo: cleanup
 
 ## [2.0.1] - 2022-01-23
 - Many improvements thanks to Agondev's [PR](https://github.com/X-Wei/widget_with_codeview/pull/11)

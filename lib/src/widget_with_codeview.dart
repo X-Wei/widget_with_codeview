@@ -12,8 +12,8 @@ class WidgetWithCodeView extends SourceCodeView {
 
   const WidgetWithCodeView({
     super.key,
-    this.child,
     required super.filePath,
+    this.child,
     this.tabChangeListener,
     super.codeLinkPrefix,
     super.showLabelText,
@@ -23,6 +23,8 @@ class WidgetWithCodeView extends SourceCodeView {
     super.labelTextStyle,
     super.headerWidget,
     super.footerWidget,
+    super.lightTheme,
+    super.darkTheme,
   });
 
   static const _TABS = <Widget>[
@@ -75,10 +77,9 @@ class _WidgetWithCodeViewState extends SourceCodeViewState
 
   String get routeName => '/${this.runtimeType.toString()}';
 
-  Widget get sourceCodeView => super.build(context);
-
   @override
   Widget build(BuildContext context) {
+    final sourceCodeView = super.build(context);
     return Scaffold(
       appBar: (child == null)
           ? null
@@ -95,7 +96,7 @@ class _WidgetWithCodeViewState extends SourceCodeViewState
               controller: _tabController,
               children: <Widget>[
                 _AlwaysAliveWidget(child: this.child!),
-                _AlwaysAliveWidget(child: this.sourceCodeView),
+                _AlwaysAliveWidget(child: sourceCodeView),
               ],
             ),
     );
