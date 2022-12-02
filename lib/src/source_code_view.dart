@@ -55,13 +55,16 @@ class SourceCodeView extends StatefulWidget {
 
 class SourceCodeViewState extends State<SourceCodeView> {
   double _textScaleFactor = 1.0;
+  ScrollController scrollController = ScrollController();
 
   Widget _getCodeView(String codeContent, BuildContext context) {
     codeContent = codeContent.replaceAll('\r\n', '\n');
     return Container(
       constraints: BoxConstraints.expand(),
       child: Scrollbar(
+        controller: scrollController,
         child: SingleChildScrollView(
+          controller: scrollController,
           child: Column(
             children: [
               if (widget.headerWidget != null) ...[
