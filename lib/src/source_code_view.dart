@@ -13,7 +13,8 @@ import 'package:url_launcher/url_launcher.dart' as url_launcher;
 class SourceCodeView extends StatefulWidget {
   // Path of source file (relative to project root). The file's content will be
   // shown in the "Code" tab.
-  final String filePath;
+  final String? filePath;
+  final String? codeContent;
   final String? codeLinkPrefix;
   // Fine tune the menu appearance.
   final bool showLabelText;
@@ -31,6 +32,7 @@ class SourceCodeView extends StatefulWidget {
   const SourceCodeView({
     Key? key,
     required this.filePath,
+    this.codeContent,
     this.codeLinkPrefix,
     this.showLabelText = false,
     this.iconBackgroundColor,
@@ -113,9 +115,13 @@ class SourceCodeViewState extends State<SourceCodeView> {
             labelBackgroundColor: labelBackgroundColor,
             labelStyle: labelTextStyle,
             onTap: () async {
-              Clipboard.setData(ClipboardData(
-                  text: await DefaultAssetBundle.of(context)
-                      .loadString(widget.filePath)));
+              if (widget.codeContent != null) {
+                Clipboard.setData(ClipboardData(text: widget.codeContent));
+              } else if (widget.filePath?.isNotEmpty ?? false) {
+                Clipboard.setData(ClipboardData(
+                    text: await DefaultAssetBundle.of(context)
+                        .loadString(widget.filePath ?? '')));
+              }
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text('Code copied to clipboard!'),
               ));
@@ -158,7 +164,9 @@ class SourceCodeViewState extends State<SourceCodeView> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: DefaultAssetBundle.of(context).loadString(widget.filePath),
+      future: widget.codeContent != null
+          ? Future<String>.value(widget.codeContent)
+          : DefaultAssetBundle.of(context).loadString(widget.filePath ?? ''),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(

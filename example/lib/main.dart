@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         body: WidgetWithCodeView(
           child: const SomeWidget(), //! If empty, will only show the code view.
           filePath: 'lib/main.dart',
+          // codeContent: '',
           codeLinkPrefix: 'https://google.com?q=',
           iconBackgroundColor: Colors.white,
           iconForegroundColor: Colors.pink,
