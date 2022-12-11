@@ -13,6 +13,7 @@ class WidgetWithCodeView extends SourceCodeView {
   const WidgetWithCodeView({
     super.key,
     required super.filePath,
+    super.codeContent,
     this.child,
     this.tabChangeListener,
     super.codeLinkPrefix,
