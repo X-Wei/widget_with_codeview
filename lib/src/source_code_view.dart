@@ -116,7 +116,7 @@ class SourceCodeViewState extends State<SourceCodeView> {
             labelStyle: labelTextStyle,
             onTap: () async {
               if (widget.codeContent != null) {
-                Clipboard.setData(ClipboardData(text: widget.codeContent));
+                Clipboard.setData(ClipboardData(text: widget.codeContent!));
               } else if (widget.filePath?.isNotEmpty ?? false) {
                 Clipboard.setData(ClipboardData(
                     text: await DefaultAssetBundle.of(context)

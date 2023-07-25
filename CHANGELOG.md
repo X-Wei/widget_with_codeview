@@ -1,5 +1,8 @@
 # Changelogs
 
+## [3.1.0] - 2023-07-25
+- upgrade packages
+
 ## [3.0.1] - 2022-10-23
 - [breaking] migrate to dart 2.17.
 - [breaking] unify to one single `WidgetWithCodeView` API

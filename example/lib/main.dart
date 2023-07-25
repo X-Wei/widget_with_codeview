@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           iconForegroundColor: Colors.pink,
           labelBackgroundColor: Theme.of(context).canvasColor,
           labelTextStyle:
-              TextStyle(color: Theme.of(context).textTheme.bodyText1.color),
+              TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
           showLabelText: true,
         ),
       ),
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 }
 
 class SomeWidget extends StatelessWidget {
-  const SomeWidget({Key key}) : super(key: key);
+  const SomeWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Stack(
